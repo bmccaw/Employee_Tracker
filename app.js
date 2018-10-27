@@ -23,7 +23,31 @@ $(document).ready(function(){
   newRole = childSnapshot.val().employeeRole;        
   newDate = childSnapshot.val().employeeDate;       
   newSalary = childSnapshot.val().employeeSalary;   
-  var rows = $("<tr>")     
+  var rows = $("<tr>")   
+  var colName = $("<td>")  
+  var colRole = $("<td>")  
+  var colDate = $("<td>") 
+  var colMonths =$("<td>") 
+  var colSalary = $("<td>")
+  var colTotalBilled = $("<td>")  
+  rows.append(colName);
+  rows.append(colRole);
+  rows.append(colDate);
+  rows.append(colMonths);
+  rows.append(colSalary);
+  rows.append(colTotalBilled);
+  $("#table-body").append(rows);
+  colName.text(newName)
+  colRole.text(newRole)
+  colDate.text(newDate)
+  colSalary.text(salary)
+
+
+
+    
+     
+      
+       
   
       });
       $("#submit").on("click", function(event){
