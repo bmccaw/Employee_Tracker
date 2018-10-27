@@ -17,12 +17,16 @@ $(document).ready(function(){
       var newRole;
       var newDate;
       var salary;
+      var  convertedDate;
+      var format;
+      var months;
+      var total
 
       database.ref().on("child_added", function(childSnapshot) {
   newName = childSnapshot.val().employeeName;        
   newRole = childSnapshot.val().employeeRole;        
   newDate = childSnapshot.val().employeeDate;       
-  newSalary = childSnapshot.val().employeeSalary;   
+  salary = childSnapshot.val().employeeSalary;   
   var rows = $("<tr>")   
   var colName = $("<td>")  
   var colRole = $("<td>")  
@@ -30,6 +34,12 @@ $(document).ready(function(){
   var colMonths =$("<td>") 
   var colSalary = $("<td>")
   var colTotalBilled = $("<td>")  
+//   format = "MM/DD/YYYY"
+//   convertedDate = moment(newDate, format);
+  months = moment().diff(newDate, "months")
+  total = (months * salary)
+ 
+  
   rows.append(colName);
   rows.append(colRole);
   rows.append(colDate);
@@ -37,10 +47,13 @@ $(document).ready(function(){
   rows.append(colSalary);
   rows.append(colTotalBilled);
   $("#table-body").append(rows);
+
   colName.text(newName)
   colRole.text(newRole)
   colDate.text(newDate)
   colSalary.text(salary)
+  colMonths.text(months)
+  colTotalBilled.text(total)
 
 
 
@@ -62,7 +75,8 @@ event.preventDefault();
           employeeName: newName,
           employeeRole: newRole,
           employeeDate: newDate,
-          employeeSalary: salary
+          employeeSalary: salary,
+          dataAdded: firebase.database.ServerValue.TIMESTAMP
 
       });
 
